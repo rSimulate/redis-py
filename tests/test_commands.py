@@ -5,8 +5,7 @@ import pytest
 import redis
 import time
 
-from redis._compat import (unichr, u, b, ascii_letters, iteritems, iterkeys,
-                           itervalues)
+from redis._compat import (unichr, u, b, ascii_letters, iteritems, iterkeys, itervalues)
 from redis.client import parse_info
 from redis import exceptions
 
@@ -19,9 +18,9 @@ def slowlog(request, r):
     old_slower_than_value = current_config['slowlog-log-slower-than']
     old_max_legnth_value = current_config['slowlog-max-len']
 
-    def cleanup():
-        r.config_set('slowlog-log-slower-than', old_slower_than_value)
-        r.config_set('slowlog-max-len', old_max_legnth_value)
+def cleanup():
+    r.config_set('slowlog-log-slower-than', old_slower_than_value)
+    r.config_set('slowlog-max-len', old_max_legnth_value)
     request.addfinalizer(cleanup)
 
     r.config_set('slowlog-log-slower-than', 0)
